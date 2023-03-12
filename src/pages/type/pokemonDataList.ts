@@ -5,7 +5,7 @@ export type PokemonDataList = {
   count: number
   next?: string
   previous?: string
-  Results: PokemonResults
+  results: PokemonResults
 }
 
 /**

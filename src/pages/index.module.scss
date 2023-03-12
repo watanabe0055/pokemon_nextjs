@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.grid_container {
+  display: grid;
+  grid-template-columns: repeat(
+    8,
+    1fr
+  ); /* 8分割するために、列を8つ用意します */
+  grid-gap: 10px; /* 各セルの間に余白を設けます */
+  @media (max-width: 400px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

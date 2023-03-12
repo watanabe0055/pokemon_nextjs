@@ -1,0 +1,12 @@
+.name_content {
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  .name_font {
+    text-align: center;
+    font-size: 12px;
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+}
