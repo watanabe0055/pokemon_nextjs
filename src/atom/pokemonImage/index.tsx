@@ -6,7 +6,9 @@ const dummyData = {
   alt: 'フシギダネの画像',
 }
 
-export const PokemonImage = () => {
+export const PokemonImage = (props) => {
+  console.log(props.src)
+
   return (
     <>
       <Image
