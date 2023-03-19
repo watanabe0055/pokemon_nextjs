@@ -6,13 +6,19 @@ const dummyData = {
   alt: 'フシギダネの画像',
 }
 
-export const PokemonImage = (props) => {
-  console.log(props.src)
+export const PokemonImage = (props: { src: string }) => {
+  const { src } = props
+
+  // next/Imageの機能
+  const pokemonImageLoader = ({ src }) => {
+    return `${src}`
+  }
 
   return (
     <>
       <Image
-        src={dummyData.src}
+        loader={pokemonImageLoader}
+        src={src}
         alt={dummyData.alt}
         layout="responsive"
         width={134}
