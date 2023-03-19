@@ -31,7 +31,7 @@ export const PokemonCard = (props: { name: string; url: string }) => {
       <div className={styles.image_content}>
         {pokemonImage ? (
           <div>
-            <PokemonImage src={pokemonImage} />
+            <PokemonImage src={pokemonImage} name={name} />
             <PokemonName name={name} />
           </div>
         ) : (
