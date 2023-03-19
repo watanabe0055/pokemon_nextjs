@@ -1,20 +1,21 @@
 import type { Key } from 'react'
 import axios from 'axios'
 import { PokemonCard } from '@/module/pokemonCard'
+import { BASEURL, MAXCOUNT } from '@/pages/constant/api'
 import styles from '@/pages/index.module.scss'
-import { BaseUrl } from '@/utils/base'
 import type {
   PokemonDataList,
   ResponsePokemonDataList,
 } from './type/pokemonDataList'
 
+/**
+ * @component ポケモン一覧画面
+ */
 export default function pokemonIndex(props: {
   pokemonDataList: PokemonDataList
 }) {
   const { pokemonDataList } = props
   const results = pokemonDataList.results
-
-  console.log(results)
 
   return (
     <>
@@ -35,10 +36,13 @@ export default function pokemonIndex(props: {
   )
 }
 
+/**
+ * @method ポケモン一覧APIのフェッチ関数（getServerSide)
+ */
 export async function getServerSideProps() {
   // ポケモンの一覧を取得
   const pokemonDataList = await axios
-    .get(`${BaseUrl}pokemon`)
+    .get(`${BASEURL}pokemon`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
 

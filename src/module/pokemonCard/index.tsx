@@ -4,10 +4,14 @@ import { PokemonImage } from '@/atom/pokemonImage'
 import { PokemonName } from '@/atom/pokemonName'
 import styles from '@/module/pokemonCard/index.module.scss'
 
+/**
+ * @component ポケモンカード
+ */
 export const PokemonCard = (props: { name: string; url: string }) => {
   const { name, url } = props
   const [pokemonImage, setPokemonImage] = useState<string | undefined>()
 
+  // urlから画像をフェッチする
   useEffect(() => {
     axios
       .get(url)
