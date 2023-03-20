@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Key } from 'react'
 import axios from 'axios'
 import { PokemonCard } from '@/module/pokemonCard'
@@ -7,7 +8,6 @@ import type {
   PokemonDataList,
   ResponsePokemonDataList,
 } from '../type/pokemonDataList'
-import Link from 'next/link'
 
 /**
  * @component ポケモン一覧画面
@@ -43,7 +43,7 @@ export default function pokemonIndex(props: {
 export async function getServerSideProps() {
   // ポケモンの一覧を取得
   const pokemonDataList = await axios
-    .get(`${BASEURL}pokemon`)
+    .get(`${BASEURL.NOMAL}pokemon`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
 

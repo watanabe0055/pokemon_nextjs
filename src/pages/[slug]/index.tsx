@@ -1,21 +1,16 @@
-import { useRouter } from 'next/router'
 import axios from 'axios'
 import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
-import type {
-  ResponsePokemonDataList,
-  PokemonDataList,
-} from '@/type/pokemonDataList'
+import type { PokemonSpecies } from '@/type/pokemonSpacies'
 import { BASEURL } from '../constant/api'
 
-export default function DisplayPokemonInfo() {
-  const router = useRouter()
-
-  // urlからポケモンidを取得
-  const pokemonDetailId = repalceLeadingZeros(router.query.slug)
+export default function DisplayPokemonInfo(props: {
+  pokemonData: PokemonSpecies
+}) {
+  console.log(props)
 
   return (
     <>
-      <div>{pokemonDetailId}</div>
+      <div>pokemonDetailId</div>
     </>
   )
 }
@@ -23,12 +18,16 @@ export default function DisplayPokemonInfo() {
 /**
  * @method ポケモン一覧APIのフェッチ関数（getServerSide)
  */
-export async function getServerSideProps() {
+export async function getServerSideProps(context: { query: { slug: string } }) {
+  // urlからポケモンidを取得
+  const { slug } = context.query
+  // ポケモンIDの先頭に0があった際に置換する
+  const pokemonDetailId = repalceLeadingZeros(slug)
   // ポケモンの一覧を取得
-  const pokemonDetail = await axios
-    .get(`${BASEURL}pokemon`)
-    .then((response: ResponsePokemonDataList) => {
-      const pokemonData: PokemonDataList = response.data
+  const pokemonData = await axios
+    .get(`${BASEURL.SPECIES}/${pokemonDetailId}`)
+    .then((response: PokemonSpecies) => {
+      const pokemonData = response.data
 
       return pokemonData
     })
@@ -39,6 +38,6 @@ export async function getServerSideProps() {
     })
 
   return {
-    props: { pokemonDetail },
+    props: { pokemonData },
   }
 }
