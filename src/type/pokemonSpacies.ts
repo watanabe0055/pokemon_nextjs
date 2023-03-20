@@ -91,3 +91,13 @@ export type PokemonSpecies = {
     }>
   }
 }
+
+export type PokemonNames = {
+  names: [
+    name: string,
+    language: {
+      name: string
+      url: string
+    }
+  ]
+}

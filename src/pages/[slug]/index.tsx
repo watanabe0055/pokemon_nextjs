@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
 import { BASEURL } from '../constant/api'
@@ -6,7 +7,8 @@ import { BASEURL } from '../constant/api'
 export default function DisplayPokemonInfo(props: {
   pokemonData: PokemonSpecies
 }) {
-  console.log(props)
+  const { pokemonData } = props
+  convertPokemonDetail(pokemonData)
 
   return (
     <>
