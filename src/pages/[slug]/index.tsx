@@ -5,14 +5,15 @@ import type { PokemonSpecies } from '@/type/pokemonSpacies'
 import { BASEURL } from '../constant/api'
 
 export default function DisplayPokemonInfo(props: {
-  pokemonData: PokemonSpecies
+  pokemonSpeciesDetail: PokemonSpecies
 }) {
-  const { pokemonData } = props
-  convertPokemonDetail(pokemonData)
+  const { pokemonSpeciesDetail } = props
+  console.log(pokemonSpeciesDetail)
+  const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
     <>
-      <div>pokemonDetailId</div>
+      <div>{japaneseName}</div>
     </>
   )
 }
@@ -26,9 +27,9 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
   // ポケモンIDの先頭に0があった際に置換する
   const pokemonDetailId = repalceLeadingZeros(slug)
   // ポケモンの一覧を取得
-  const pokemonData = await axios
+  const pokemonSpeciesDetail = await axios
     .get(`${BASEURL.SPECIES}/${pokemonDetailId}`)
-    .then((response: PokemonSpecies) => {
+    .then((response) => {
       const pokemonData = response.data
 
       return pokemonData
@@ -40,6 +41,6 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
     })
 
   return {
-    props: { pokemonData },
+    props: { pokemonSpeciesDetail, test },
   }
 }
