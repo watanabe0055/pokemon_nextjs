@@ -41,6 +41,6 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
     })
 
   return {
-    props: { pokemonSpeciesDetail, test },
+    props: { pokemonSpeciesDetail },
   }
 }
