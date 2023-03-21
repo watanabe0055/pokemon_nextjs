@@ -6,9 +6,10 @@ import { BASEURL } from '../constant/api'
 
 export default function DisplayPokemonInfo(props: {
   pokemonSpeciesDetail: PokemonSpecies
+  pokemonDetail
 }) {
-  const { pokemonSpeciesDetail } = props
-  console.log(pokemonSpeciesDetail)
+  const { pokemonSpeciesDetail, pokemonDetail } = props
+  console.log(pokemonDetail)
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
@@ -26,7 +27,7 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
   const { slug } = context.query
   // ポケモンIDの先頭に0があった際に置換する
   const pokemonDetailId = repalceLeadingZeros(slug)
-  // ポケモンの一覧を取得
+  // ポケモンの特徴データ取得
   const pokemonSpeciesDetail = await axios
     .get(`${BASEURL.SPECIES}/${pokemonDetailId}`)
     .then((response) => {
@@ -40,7 +41,21 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
       return undefined
     })
 
+  // ポケモンの詳細情報を取得
+  const pokemonDetail = await axios
+    .get(`${BASEURL.POKEMON}/${pokemonDetailId}`)
+    .then((response) => {
+      const pokemonData = response.data
+
+      return pokemonData
+    })
+    .catch((error) => {
+      console.log(error)
+
+      return undefined
+    })
+
   return {
-    props: { pokemonSpeciesDetail },
+    props: { pokemonSpeciesDetail, pokemonDetail },
   }
 }
