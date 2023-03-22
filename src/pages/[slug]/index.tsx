@@ -1,20 +1,24 @@
 import axios from 'axios'
+import { PokemonInfoDetail } from '@/atom/pokemonInfoDetail'
+import { POKEMON_INFO_HEADER } from '@/constant/pokemonInfo'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
-import { BASEURL } from '../constant/api'
+import { BASEURL } from '../../constant/api'
 
 export default function DisplayPokemonInfo(props: {
   pokemonSpeciesDetail: PokemonSpecies
-  pokemonDetail
 }) {
-  const { pokemonSpeciesDetail, pokemonDetail } = props
-  console.log(pokemonDetail)
+  const { pokemonSpeciesDetail } = props
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
     <>
       <div>{japaneseName}</div>
+      <PokemonInfoDetail
+        features={POKEMON_INFO_HEADER.CHARACTERISTIC}
+        text="ねずみポケモン"
+      />
     </>
   )
 }
