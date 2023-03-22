@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { PokemonInfoDetail } from '@/atom/pokemonInfoDetail'
-import { POKEMON_INFO_HEADER } from '@/constant/pokemonInfo'
+import { PokemonFeatuer } from '@/module/pokemonCard/pokemonFeatuer'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
@@ -15,10 +14,7 @@ export default function DisplayPokemonInfo(props: {
   return (
     <>
       <div>{japaneseName}</div>
-      <PokemonInfoDetail
-        features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-        text="ねずみポケモン"
-      />
+      <PokemonFeatuer />
     </>
   )
 }
