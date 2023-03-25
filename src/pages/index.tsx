@@ -1,12 +1,13 @@
+import Link from 'next/link'
 import type { Key } from 'react'
 import axios from 'axios'
 import { PokemonCard } from '@/module/pokemonCard'
-import { BASEURL, MAXCOUNT } from '@/pages/constant/api'
+import { BASEURL } from '@/constant/api'
 import styles from '@/pages/index.module.scss'
 import type {
   PokemonDataList,
   ResponsePokemonDataList,
-} from './type/pokemonDataList'
+} from '../type/pokemonDataList'
 
 /**
  * @component ポケモン一覧画面
@@ -24,9 +25,9 @@ export default function pokemonIndex(props: {
           <div className={styles.grid_container}>
             {results.map(
               (pokemon: { name: string; url: string }, index: Key) => (
-                <div key={index}>
+                <Link key={index} href={`/${index}`}>
                   <PokemonCard name={pokemon.name} url={pokemon.url} />
-                </div>
+                </Link>
               )
             )}
           </div>
@@ -42,7 +43,7 @@ export default function pokemonIndex(props: {
 export async function getServerSideProps() {
   // ポケモンの一覧を取得
   const pokemonDataList = await axios
-    .get(`${BASEURL}pokemon`)
+    .get(`${BASEURL.NOMAL}pokemon`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
 

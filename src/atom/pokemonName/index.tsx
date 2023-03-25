@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '@/atom/pokemonName/index.module.scss'
 
-export const PokemonName = (props) => {
+export const PokemonName = (props: { name: string }) => {
   const { name } = props
 
   return (
