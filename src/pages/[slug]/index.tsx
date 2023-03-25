@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { PokemonFeatuer } from '@/module/pokemonCard/pokemonFeatuer'
+import { PokemonStatus } from '@/module/pokemonCard/pokemonStatus'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
@@ -15,12 +16,13 @@ export default function DisplayPokemonInfo(props: {
     <>
       <div>{japaneseName}</div>
       <PokemonFeatuer />
+      <PokemonStatus />
     </>
   )
 }
 
 /**
- * @method ポケモン一覧APIのフェッチ関数（getServerSide)
+ * ポケモン一覧APIのフェッチ関数（getServerSide)
  */
 export async function getServerSideProps(context: { query: { slug: string } }) {
   // urlからポケモンidを取得
