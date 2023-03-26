@@ -12,11 +12,21 @@ export default function DisplayPokemonInfo(props: {
   const { pokemonSpeciesDetail } = props
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
+  // TODO:テストデータ
+  const status = {
+    hp: 20,
+    att: 25,
+    def: 30,
+    spa: 40,
+    spd: 45,
+    sp: 50,
+  }
+
   return (
     <>
       <div>{japaneseName}</div>
       <PokemonFeatuer />
-      <PokemonStatus />
+      <PokemonStatus status={status} />
     </>
   )
 }
