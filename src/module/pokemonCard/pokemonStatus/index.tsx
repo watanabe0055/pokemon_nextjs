@@ -33,23 +33,12 @@ type Props = {
   }
 }
 
-export const data = {
-  labels: ['HP', 'こうげき', 'ぼうぎょ', 'とくこう', 'とくぼう', 'すばやさ'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [5, 9, 3, 5, 2, 3],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgba(255, 99, 132, 1)',
-      borderWidth: 1,
-    },
-  ],
-}
-
 /** ポケモン詳細画面のステータスパーツ */
 export const PokemonStatus = (status: Props) => {
+  // ステータス
   const { hp, att, def, spa, spd, sp } = status.status
 
+  // レーダーチャートに使用しているデータセット
   const data = {
     labels: ['HP', 'こうげき', 'ぼうぎょ', 'とくこう', 'とくぼう', 'すばやさ'],
     datasets: [
