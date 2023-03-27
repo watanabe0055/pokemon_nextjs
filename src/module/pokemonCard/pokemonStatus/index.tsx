@@ -61,6 +61,7 @@ export const PokemonStatus = (statsList: PokemonStats) => {
         borderWidth: 1,
       },
     ],
+    // TODO: オプションが効いてない
   }
 
   return (
