@@ -22,34 +22,60 @@ ChartJS.register(
 /**
  * @type ステータスプロップスの型定義
  */
-type Props = {
-  status: {
-    hp: number
-    att: number
-    def: number
-    spa: number
-    spd: number
-    sp: number
+type Stat = {
+  base_stat: number
+  effort: number
+  stat: {
+    name: string
+    url: string
   }
 }
 
+type PokemonStats = {
+  stats: Stat[]
+}
 /** ポケモン詳細画面のステータスパーツ */
-export const PokemonStatus = (status: Props) => {
-  // ステータス
-  const { hp, att, def, spa, spd, sp } = status.status
+export const PokemonStatus = (statsList: PokemonStats) => {
+  console.log(statsList)
+
+  const status = statsList.stats.map((stats) => {
+    return stats.base_stat
+  })
+
+  const options = {
+    scale: {
+      angleLines: {
+        display: false,
+      },
+      ticks: {
+        suggestedMin: 50,
+        suggestedMax: 120,
+      },
+    },
+  }
 
   // レーダーチャートに使用しているデータセット
   const data = {
+    type: 'radar',
     labels: ['HP', 'こうげき', 'ぼうぎょ', 'とくこう', 'とくぼう', 'すばやさ'],
     datasets: [
       {
         label: 'ステータス',
-        data: [hp, att, def, spa, spd, sp],
+        data: [
+          status[0],
+          status[1],
+          status[2],
+          status[3],
+          status[4],
+          status[5],
+        ],
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 1,
       },
     ],
+    // TODO: オプションが効いてない
+    options,
   }
 
   return (
