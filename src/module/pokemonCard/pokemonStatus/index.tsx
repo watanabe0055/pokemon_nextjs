@@ -42,8 +42,21 @@ export const PokemonStatus = (statsList: PokemonStats) => {
     return stats.base_stat
   })
 
+  const options = {
+    scale: {
+      angleLines: {
+        display: false,
+      },
+      ticks: {
+        suggestedMin: 50,
+        suggestedMax: 120,
+      },
+    },
+  }
+
   // レーダーチャートに使用しているデータセット
   const data = {
+    type: 'radar',
     labels: ['HP', 'こうげき', 'ぼうぎょ', 'とくこう', 'とくぼう', 'すばやさ'],
     datasets: [
       {
@@ -62,6 +75,7 @@ export const PokemonStatus = (statsList: PokemonStats) => {
       },
     ],
     // TODO: オプションが効いてない
+    options,
   }
 
   return (
