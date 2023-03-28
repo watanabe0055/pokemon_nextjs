@@ -1,3 +1,4 @@
+import type { PokemonType } from '@/type/pokemonDetail'
 import type { PokemonNames, PokemonSpecies } from '@/type/pokemonSpacies'
 
 /**
@@ -25,4 +26,21 @@ const getJapanesePokemonName = (
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   return japaneseName ? japaneseName.name : undefined
+}
+
+/** 体重と身長を10で割った値を返却する関数
+ * @param divid 体重or身長
+ */
+export const getDividedNumber = (divid: number): number => {
+  return divid / 10
+}
+
+export const getPokemonTypeNames = (typeList: PokemonType[]) => {
+  const types = typeList.map((type: PokemonType) => {
+    return type.type.name
+  })
+  // typeが２つ以上の時は「、」で区切った配列を返す
+  const typesJoin = types.length >= 2 ? types.join('、') : types
+
+  return typesJoin
 }

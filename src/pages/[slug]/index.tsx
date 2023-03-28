@@ -22,10 +22,8 @@ export default function DisplayPokemonInfo(props: {
       <PokemonFeatuer
         height={height}
         weight={weight}
-        id={id}
         types={types}
         abilities={abilities}
-        species={species}
       />
       <PokemonStatus stats={stats} />
     </>
