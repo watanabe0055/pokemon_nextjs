@@ -12,7 +12,6 @@ export default function DisplayPokemonInfo(props: {
   pokemonDetail: PokemonResponse
 }) {
   const { pokemonSpeciesDetail, pokemonDetail } = props
-  console.log(pokemonDetail)
 
   const { stats, height, weight, id, types, abilities, species } = pokemonDetail
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
@@ -20,7 +19,14 @@ export default function DisplayPokemonInfo(props: {
   return (
     <>
       <div>{japaneseName}</div>
-      <PokemonFeatuer />
+      <PokemonFeatuer
+        height={height}
+        weight={weight}
+        id={id}
+        types={types}
+        abilities={abilities}
+        species={species}
+      />
       <PokemonStatus stats={stats} />
     </>
   )
