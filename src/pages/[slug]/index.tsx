@@ -12,8 +12,9 @@ export default function DisplayPokemonInfo(props: {
   pokemonDetail: PokemonResponse
 }) {
   const { pokemonSpeciesDetail, pokemonDetail } = props
+  console.log(pokemonDetail)
 
-  const { stats } = pokemonDetail
+  const { stats, height, weight, id, types, abilities, species } = pokemonDetail
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
