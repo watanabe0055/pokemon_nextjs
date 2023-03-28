@@ -2,17 +2,17 @@ import { PokemonInfoText } from '@/atom/pokemonInfoText'
 import { POKEMON_INFO_HEADER } from '@/constant/pokemonInfo'
 import {
   getDividedNumber,
+  getPokemonAbilitiesNames,
   getPokemonTypeNames,
 } from '@/utils/fetchPokemon/convertPokemonDetail'
-import type { PokemonType } from '@/type/pokemonDetail'
+import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
 import styles from './index.module.scss'
 
 type Props = {
-  stats: string
   height: number
   weight: number
   types: PokemonType[]
-  abilities: string
+  abilities: PokemonAbility[]
 }
 
 /**
@@ -20,10 +20,11 @@ type Props = {
  * @param props
  */
 export const PokemonFeatuer = (props: Props) => {
-  const { stats, height, weight, types, abilities } = props
+  const { height, weight, types, abilities } = props
 
   const typeList = getPokemonTypeNames(types)
-  console.log(abilities)
+  const abilityList = getPokemonAbilitiesNames(abilities)
+  console.log(abilityList)
 
   return (
     <>
@@ -46,7 +47,7 @@ export const PokemonFeatuer = (props: Props) => {
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-          text={``}
+          text={`${abilityList}`}
         />
       </div>
     </>
