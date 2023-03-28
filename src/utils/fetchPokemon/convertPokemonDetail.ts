@@ -35,7 +35,13 @@ export const getDividedNumber = (divid: number): number => {
   return divid / 10
 }
 
-export const getPokemonTypeNames = (typeList: PokemonType[]) => {
+/**
+ * タイプオブジェクトからnameだけを取得して、配列または文字列で返す
+ * @param typeList タイプのオブジェクト
+ */
+export const getPokemonTypeNames = (
+  typeList: PokemonType[]
+): string | string[] => {
   const types = typeList.map((type: PokemonType) => {
     return type.type.name
   })

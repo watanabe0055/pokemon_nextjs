@@ -23,7 +23,7 @@ export const PokemonFeatuer = (props: Props) => {
   const { stats, height, weight, types, abilities } = props
 
   const typeList = getPokemonTypeNames(types)
-  console.log(typeList)
+  console.log(abilities)
 
   return (
     <>
