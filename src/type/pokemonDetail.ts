@@ -77,6 +77,10 @@ export type PokemonResponse = {
   id: number
   moves: PokemonMove[]
   name: string
+  species: {
+    name: string
+    url: string
+  }
   sprites: {
     front_default: string
     front_shiny: string

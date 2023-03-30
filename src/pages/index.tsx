@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import type { Key } from 'react'
 import axios from 'axios'
-import { PokemonCard } from '@/module/pokemonCard'
 import { BASEURL } from '@/constant/api'
+import { PokemonCard } from '@/module/pokemonCard'
 import styles from '@/pages/index.module.scss'
 import type {
   PokemonDataList,

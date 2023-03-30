@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { PokemonFeatuer } from '@/module/pokemonCard/pokemonFeatuer'
 import { PokemonStatus } from '@/module/pokemonCard/pokemonStatus'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
-import { repalceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
+import { replaceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
+import { PokemonFeature } from '@/module/pokemonCard/PokemonFeature'
 import type { PokemonResponse } from '@/type/pokemonDetail'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
 import { BASEURL } from '../../constant/api'
@@ -13,13 +13,18 @@ export default function DisplayPokemonInfo(props: {
 }) {
   const { pokemonSpeciesDetail, pokemonDetail } = props
 
-  const { stats } = pokemonDetail
+  const { stats, height, weight, id, types, abilities, species } = pokemonDetail
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
     <>
       <div>{japaneseName}</div>
-      <PokemonFeatuer />
+      <PokemonFeature
+        height={height}
+        weight={weight}
+        types={types}
+        abilities={abilities}
+      />
       <PokemonStatus stats={stats} />
     </>
   )
@@ -32,7 +37,7 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
   // urlからポケモンidを取得
   const { slug } = context.query
   // ポケモンIDの先頭に0があった際に置換する
-  const pokemonDetailId = repalceLeadingZeros(slug)
+  const pokemonDetailId = replaceLeadingZeros(slug)
   // ポケモンの特徴データ取得
   const pokemonSpeciesDetail = await axios
     .get(`${BASEURL.SPECIES}/${pokemonDetailId}`)

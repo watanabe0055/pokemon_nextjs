@@ -36,8 +36,6 @@ type PokemonStats = {
 }
 /** ポケモン詳細画面のステータスパーツ */
 export const PokemonStatus = (statsList: PokemonStats) => {
-  console.log(statsList)
-
   const status = statsList.stats.map((stats) => {
     return stats.base_stat
   })
