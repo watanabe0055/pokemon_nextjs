@@ -19,7 +19,7 @@ type Props = {
  * ポケモンの特性に関するコンポーネント
  * @param props
  */
-export const PokemonFeatuer = (props: Props) => {
+export const PokemonFeature = (props: Props) => {
   const { height, weight, types, abilities } = props
 
   const typeList = getPokemonTypeNames(types)
