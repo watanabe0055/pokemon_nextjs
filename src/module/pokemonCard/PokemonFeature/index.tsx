@@ -8,6 +8,7 @@ import {
 import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
 import styles from './index.module.scss'
 
+/** 特性コンポーネントの用 */
 type Props = {
   height: number
   weight: number
@@ -24,11 +25,10 @@ export const PokemonFeature = (props: Props) => {
 
   const typeList = getPokemonTypeNames(types)
   const abilityList = getPokemonAbilitiesNames(abilities)
-  console.log(abilityList)
 
   return (
     <>
-      <div className={styles.featuer_content}>
+      <div className={styles.feature_content}>
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.CHARACTERISTIC}
           text="ねずみポケモン"
