@@ -20,7 +20,6 @@
     "MY_ENV_VAR": "my-value"
   },
   "build": {
-    "command": "npm install && npm run build",
     "env": {
       "BUILD_ENV_VAR": "build-value"
     }
