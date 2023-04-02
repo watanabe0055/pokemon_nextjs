@@ -4,7 +4,7 @@ export const PokemonImage = (props: { src: string; name: string }) => {
   const { src, name } = props
 
   // next/Imageの機能
-  const pokemonImageLoader = ({ src }) => {
+  const pokemonImageLoader = ({ src }: any) => {
     return `${src}`
   }
 
