@@ -5,6 +5,7 @@ import {
   getPokemonAbilitiesNames,
   getPokemonTypeNames,
 } from '@/utils/fetchPokemon/convertPokemonDetail'
+import { translateTypeToJapanese } from '@/utils/translateTypeToJapanese'
 import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
 import styles from './index.module.scss'
 
@@ -24,6 +25,9 @@ export const PokemonFeature = (props: Props) => {
   const { height, weight, types, abilities } = props
 
   const typeList = getPokemonTypeNames(types)
+  // typeを日本語に変換する
+  const japanesePokemonTypes = translateTypeToJapanese(typeList)
+
   const abilityList = getPokemonAbilitiesNames(abilities)
 
   return (
@@ -35,7 +39,7 @@ export const PokemonFeature = (props: Props) => {
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.TYPE}
-          text={`${typeList}`}
+          text={`${japanesePokemonTypes}`}
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.HIGHT}

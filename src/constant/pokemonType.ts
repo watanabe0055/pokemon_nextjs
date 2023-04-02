@@ -1,6 +1,8 @@
+export type PokemonType = Record<string, string>
+
 /** タイプの一覧 */
 // TODO: 検討して修正
-export const POKEMON_TYPE = {
+export const POKEMON_TYPE: PokemonType = {
   nomal: 'ノーマル',
   fighting: 'かくとう',
   flying: 'ひこう',
