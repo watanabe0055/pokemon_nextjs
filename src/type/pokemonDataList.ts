@@ -16,6 +16,9 @@ type PokemonResults = {
   url: string
 }
 
+/**
+ * @type ポケモン一覧APIのリザルトの取得直後
+ */
 export type ResponsePokemonDataList = {
   data: PokemonDataList
 }
