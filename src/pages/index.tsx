@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import type { Key } from 'react'
 import axios from 'axios'
 import { BASEURL } from '@/constant/api'
 import { PokemonCard } from '@/module/pokemonCard'
@@ -27,7 +26,7 @@ export default function pokemonIndex(props: {
           <div className={styles.grid_container}>
             {results.map(
               (pokemon: { name: string; url: string }, index: number) => (
-                <Link key={index} href={`/${index}`}>
+                <Link key={index} href={`/${index + 1}`}>
                   <PokemonCard
                     name={japanesePokemonName[index]}
                     url={pokemon.url}
@@ -59,26 +58,23 @@ export async function getServerSideProps() {
 
       return undefined
     })
-  const japanesePokemonName = []
 
-  for (const pokemon of pokemonDataList.results) {
-    const fetchPokemonSpecies = await axios
-      .get(`${BASEURL.SPECIES}/${pokemon.name}`)
-      .then((response) => {
+  // pokemonDataList?.results が undefined の場合は空の配列 [] を代わりに渡す
+  const japanesePokemonName = await Promise.all(
+    pokemonDataList?.results.map(async (pokemon) => {
+      try {
+        const response = await axios.get(`${BASEURL.SPECIES}/${pokemon.name}`)
         const pokemonData = response.data.names
-        // 日本語のポケモン名を取得
         const japaneseName = getJapanesePokemonName(pokemonData)
 
         return japaneseName
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log(error)
 
         return undefined
-      })
-
-    japanesePokemonName.push(fetchPokemonSpecies)
-  }
+      }
+    }) ?? []
+  )
 
   return {
     props: { pokemonDataList, japanesePokemonName },
