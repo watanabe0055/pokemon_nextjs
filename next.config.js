@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/{pokemon-nextjs}' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? 'pokemon-nextjs' : '',
 }
 
 module.exports = nextConfig
