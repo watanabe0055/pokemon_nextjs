@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import type { Key } from 'react'
 import axios from 'axios'
 import { BASEURL } from '@/constant/api'
 import { PokemonCard } from '@/module/pokemonCard'
 import styles from '@/pages/index.module.scss'
+import { getJapanesePokemonName } from '@/utils/fetchPokemon/convertPokemonDetail'
 import type {
   PokemonDataList,
   ResponsePokemonDataList,
@@ -14,8 +14,9 @@ import type {
  */
 export default function pokemonIndex(props: {
   pokemonDataList: PokemonDataList
+  japanesePokemonName: string[]
 }) {
-  const { pokemonDataList } = props
+  const { pokemonDataList, japanesePokemonName } = props
   const results = pokemonDataList.results
 
   return (
@@ -24,9 +25,12 @@ export default function pokemonIndex(props: {
         <div className={styles.container}>
           <div className={styles.grid_container}>
             {results.map(
-              (pokemon: { name: string; url: string }, index: Key) => (
-                <Link key={index} href={`/${index}`}>
-                  <PokemonCard name={pokemon.name} url={pokemon.url} />
+              (pokemon: { name: string; url: string }, index: number) => (
+                <Link key={index} href={`/${index + 1}`}>
+                  <PokemonCard
+                    name={japanesePokemonName[index]}
+                    url={pokemon.url}
+                  />
                 </Link>
               )
             )}
@@ -55,7 +59,24 @@ export async function getServerSideProps() {
       return undefined
     })
 
+  // pokemonDataList?.results が undefined の場合は空の配列 [] を代わりに渡す
+  const japanesePokemonName = await Promise.all(
+    pokemonDataList?.results.map(async (pokemon) => {
+      try {
+        const response = await axios.get(`${BASEURL.SPECIES}/${pokemon.name}`)
+        const pokemonData = response.data.names
+        const japaneseName = getJapanesePokemonName(pokemonData)
+
+        return japaneseName
+      } catch (error) {
+        console.log(error)
+
+        return undefined
+      }
+    }) ?? []
+  )
+
   return {
-    props: { pokemonDataList },
+    props: { pokemonDataList, japanesePokemonName },
   }
 }

@@ -17,14 +17,13 @@ export const convertPokemonDetail = (pokemonData: PokemonSpecies) => {
  * namesから日本語名のポケモン名を取得する関数
  * @param pokemonNames namesオブジェクト
  */
-const getJapanesePokemonName = (
+export const getJapanesePokemonName = (
   pokemonNames: PokemonNames[]
 ): string | undefined => {
   const japaneseName: PokemonNames | undefined = pokemonNames.find(
     (name: PokemonNames) => name.language.name === 'ja'
   )
 
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   return japaneseName ? japaneseName.name : undefined
 }
 
