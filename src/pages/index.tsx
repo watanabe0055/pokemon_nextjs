@@ -4,6 +4,7 @@ import axios from 'axios'
 import { BASEURL } from '@/constant/api'
 import { PokemonCard } from '@/module/pokemonCard'
 import styles from '@/pages/index.module.scss'
+import { getJapanesePokemonName } from '@/utils/fetchPokemon/convertPokemonDetail'
 import type {
   PokemonDataList,
   ResponsePokemonDataList,
@@ -14,8 +15,9 @@ import type {
  */
 export default function pokemonIndex(props: {
   pokemonDataList: PokemonDataList
+  japanesePokemonName: string[]
 }) {
-  const { pokemonDataList } = props
+  const { pokemonDataList, japanesePokemonName } = props
   const results = pokemonDataList.results
 
   return (
@@ -24,9 +26,12 @@ export default function pokemonIndex(props: {
         <div className={styles.container}>
           <div className={styles.grid_container}>
             {results.map(
-              (pokemon: { name: string; url: string }, index: Key) => (
+              (pokemon: { name: string; url: string }, index: number) => (
                 <Link key={index} href={`/${index}`}>
-                  <PokemonCard name={pokemon.name} url={pokemon.url} />
+                  <PokemonCard
+                    name={japanesePokemonName[index]}
+                    url={pokemon.url}
+                  />
                 </Link>
               )
             )}
@@ -54,8 +59,28 @@ export async function getServerSideProps() {
 
       return undefined
     })
+  const japanesePokemonName = []
+
+  for (const pokemon of pokemonDataList.results) {
+    const fetchPokemonSpecies = await axios
+      .get(`${BASEURL.SPECIES}/${pokemon.name}`)
+      .then((response) => {
+        const pokemonData = response.data.names
+        // 日本語のポケモン名を取得
+        const japaneseName = getJapanesePokemonName(pokemonData)
+
+        return japaneseName
+      })
+      .catch((error) => {
+        console.log(error)
+
+        return undefined
+      })
+
+    japanesePokemonName.push(fetchPokemonSpecies)
+  }
 
   return {
-    props: { pokemonDataList },
+    props: { pokemonDataList, japanesePokemonName },
   }
 }
