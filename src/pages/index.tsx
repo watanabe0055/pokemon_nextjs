@@ -21,19 +21,25 @@ export default function pokemonIndex(props: {
 
   return (
     <>
-      <div className={styles.grid_item}>
-        <div className={styles.container}>
-          <div className={styles.grid_container}>
-            {results.map(
-              (pokemon: { name: string; url: string }, index: number) => (
-                <Link key={index} href={`/${index + 1}`}>
-                  <PokemonCard
-                    name={japanesePokemonName[index]}
-                    url={pokemon.url}
-                  />
-                </Link>
-              )
-            )}
+      <div className={styles.main_content}>
+        <div className={styles.grid_item}>
+          <div className={styles.container}>
+            <div className={styles.grid_container}>
+              {results.map(
+                (pokemon: { name: string; url: string }, index: number) => (
+                  <Link
+                    key={index}
+                    href={`/${index + 1}`}
+                    className={styles.link}
+                  >
+                    <PokemonCard
+                      name={japanesePokemonName[index]}
+                      url={pokemon.url}
+                    />
+                  </Link>
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

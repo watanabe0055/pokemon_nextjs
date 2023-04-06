@@ -27,12 +27,16 @@ export const PokemonCard = (props: { name: string; url: string }) => {
   }, [url])
 
   return (
-    <div className={styles.grid_item}>
+    <div className={styles.card}>
       <div className={styles.image_content}>
         {pokemonImage ? (
           <div>
-            <PokemonImage src={pokemonImage} name={name} />
-            <PokemonName name={name} />
+            <p className={styles.image}>
+              <PokemonImage src={pokemonImage} name={name} />
+            </p>
+            <p className={styles.name}>
+              <PokemonName name={name} />
+            </p>
           </div>
         ) : (
           <></>
