@@ -7,6 +7,7 @@ import { PokemonFeature } from '@/module/pokemonCard/PokemonFeature'
 import type { ResponsePokemonDataList } from '@/type/pokemonDataList'
 import type { PokemonResponse } from '@/type/pokemonDetail'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
+import styles from './index.module.scss'
 import { BASEURL } from '../../constant/api'
 
 export default function DisplayPokemonInfo(props: {
@@ -21,8 +22,10 @@ export default function DisplayPokemonInfo(props: {
 
   return (
     <>
-      <div>{japaneseName}</div>
-      <PokemonImage src={pokemonImagePath} name={japaneseName} />
+      <p>{japaneseName}</p>
+      <div className={styles.image}>
+        <PokemonImage src={pokemonImagePath} name={japaneseName} />
+      </div>
       <PokemonFeature
         height={height}
         weight={weight}
