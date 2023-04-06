@@ -1,6 +1,9 @@
 import Image from 'next/image'
 
-export const PokemonImage = (props: { src: string; name: string }) => {
+export const PokemonImage = (props: {
+  src: string
+  name: string | undefined
+}) => {
   const { src, name } = props
 
   // next/Imageの機能
