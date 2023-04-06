@@ -1,3 +1,11 @@
+.main_content {
+  margin: 5px;
+  transition: color 0.2s ease-in-out; /* ホバー時の色変化を設定 */
+  :hover {
+    color: #ff6347; /* ホバー時のテキスト色を変更 */
+  }
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -13,4 +21,8 @@
   @media (max-width: 400px) {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+.link {
+  text-decoration: none;
 }
