@@ -22,17 +22,21 @@ export default function DisplayPokemonInfo(props: {
 
   return (
     <>
-      <p>{japaneseName}</p>
-      <div className={styles.image}>
-        <PokemonImage src={pokemonImagePath} name={japaneseName} />
+      <div className={styles.content}>
+        <div className={styles.child}>
+          <p className={styles.pokemon_name}>{japaneseName}</p>
+          <div className={styles.image}>
+            <PokemonImage src={pokemonImagePath} name={japaneseName} />
+          </div>
+          <PokemonFeature
+            height={height}
+            weight={weight}
+            types={types}
+            abilities={abilities}
+          />
+          <PokemonStatus stats={stats} />
+        </div>
       </div>
-      <PokemonFeature
-        height={height}
-        weight={weight}
-        types={types}
-        abilities={abilities}
-      />
-      <PokemonStatus stats={stats} />
     </>
   )
 }

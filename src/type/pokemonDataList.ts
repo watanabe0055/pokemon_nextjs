@@ -2,6 +2,8 @@
  * @type ポケモン一覧APIのレスポンス
  */
 export type PokemonDataList = {
+  // TODO: 型を定義する
+  sprites: any
   count: number
   next?: string
   previous?: string
