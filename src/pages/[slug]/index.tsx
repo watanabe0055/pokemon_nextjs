@@ -1,31 +1,42 @@
 import axios from 'axios'
+import { PokemonImage } from '@/atom/pokemonImage'
 import { PokemonStatus } from '@/module/pokemonCard/pokemonStatus'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { replaceLeadingZeros } from '@/utils/fetchPokemon/replaceNumber'
 import { PokemonFeature } from '@/module/pokemonCard/PokemonFeature'
+import type { ResponsePokemonDataList } from '@/type/pokemonDataList'
 import type { PokemonResponse } from '@/type/pokemonDetail'
 import type { PokemonSpecies } from '@/type/pokemonSpacies'
+import styles from './index.module.scss'
 import { BASEURL } from '../../constant/api'
 
 export default function DisplayPokemonInfo(props: {
+  pokemonImagePath: string
   pokemonSpeciesDetail: PokemonSpecies
   pokemonDetail: PokemonResponse
 }) {
-  const { pokemonSpeciesDetail, pokemonDetail } = props
+  const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail } = props
 
   const { stats, height, weight, id, types, abilities, species } = pokemonDetail
   const japaneseName = convertPokemonDetail(pokemonSpeciesDetail)
 
   return (
     <>
-      <div>{japaneseName}</div>
-      <PokemonFeature
-        height={height}
-        weight={weight}
-        types={types}
-        abilities={abilities}
-      />
-      <PokemonStatus stats={stats} />
+      <div className={styles.content}>
+        <div className={styles.child}>
+          <p className={styles.pokemon_name}>{japaneseName}</p>
+          <div className={styles.image}>
+            <PokemonImage src={pokemonImagePath} name={japaneseName} />
+          </div>
+          <PokemonFeature
+            height={height}
+            weight={weight}
+            types={types}
+            abilities={abilities}
+          />
+          <PokemonStatus stats={stats} />
+        </div>
+      </div>
     </>
   )
 }
@@ -38,6 +49,22 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
   const { slug } = context.query
   // ポケモンIDの先頭に0があった際に置換する
   const pokemonDetailId = replaceLeadingZeros(slug)
+
+  // ポケモンの一覧を取得
+  const pokemonImagePath = await axios
+    .get(`${BASEURL.NOMAL}pokemon/${pokemonDetailId}`)
+    .then((response: ResponsePokemonDataList) => {
+      const imagePath: string =
+        response.data.sprites.other['official-artwork'].front_default
+
+      return imagePath
+    })
+    .catch((error) => {
+      console.log(error)
+
+      return undefined
+    })
+
   // ポケモンの特徴データ取得
   const pokemonSpeciesDetail = await axios
     .get(`${BASEURL.SPECIES}/${pokemonDetailId}`)
@@ -67,6 +94,6 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
     })
 
   return {
-    props: { pokemonSpeciesDetail, pokemonDetail },
+    props: { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail },
   }
 }

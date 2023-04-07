@@ -10,6 +10,7 @@ import styles from '@/module/pokemonCard/index.module.scss'
 export const PokemonCard = (props: { name: string; url: string }) => {
   const { name, url } = props
   const [pokemonImage, setPokemonImage] = useState<string | undefined>()
+  console.log(url)
 
   // urlから画像をフェッチする
   useEffect(() => {
