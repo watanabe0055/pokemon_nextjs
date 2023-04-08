@@ -25,7 +25,7 @@ export type VersionGroup = {
   url: string
 }
 
-export type AbilityName = {
+type AbilityName = {
   name: string
   language: {
     name: string
@@ -63,4 +63,14 @@ export type Ability = {
     }
     slot: number
   }>
+}
+
+export type ResponseAbilityName = {
+  ability: {
+    name: string
+    language: {
+      name: string
+      url: string
+    }
+  }
 }

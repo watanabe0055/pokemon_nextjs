@@ -5,7 +5,7 @@ import {
   getPokemonTypeNames,
 } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { translateTypeToJapanese } from '@/utils/translateTypeToJapanese'
-import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
+import type { PokemonType } from '@/type/pokemonDetail'
 import styles from './index.module.scss'
 
 /** 特性コンポーネントの用 */
@@ -14,7 +14,7 @@ type Props = {
   height: number
   weight: number
   types: PokemonType[]
-  abilityList: PokemonAbility[]
+  abilityList: string[]
 }
 
 /**
