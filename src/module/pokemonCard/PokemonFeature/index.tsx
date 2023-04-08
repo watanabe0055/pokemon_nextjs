@@ -27,7 +27,7 @@ export const PokemonFeature = (props: Props) => {
   const typeList = getPokemonTypeNames(types)
   // typeを日本語に変換する
   const japanesePokemonTypes = translateTypeToJapanese(typeList)
-
+  // 特性が配列なので文字列に変換して、区切り文字を「、」にする
   const abilityText = abilityList.toString().replaceAll(',', '、')
 
   return (
