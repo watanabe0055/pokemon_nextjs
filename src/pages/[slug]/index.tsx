@@ -97,11 +97,13 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
 
       return undefined
     })
-
+  // ポケモンの特性を日本語で取得する
   const abilityList = await Promise.all(
+    // ability/idにしか日本語がないのでpokemonDetailから取得先を取得する
     pokemonDetail.abilities.map(async (ability: any) => {
       const url = ability.ability.url
 
+      // 日本語の特性名を配列で取得する
       const pokemonAbilityList = await axios
         .get(url)
         .then((response) => {
@@ -116,6 +118,7 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
 
               return undefined
             })
+            // 日本語以外はundefinedの配列になっているので、undefinedの取り除く
             .filter((abilityName: string) => abilityName !== undefined)
             .join('、')
 
