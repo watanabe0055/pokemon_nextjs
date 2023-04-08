@@ -11,6 +11,7 @@ import styles from './index.module.scss'
 
 /** 特性コンポーネントの用 */
 type Props = {
+  japaneseGeums?: string
   height: number
   weight: number
   types: PokemonType[]
@@ -22,7 +23,7 @@ type Props = {
  * @param props
  */
 export const PokemonFeature = (props: Props) => {
-  const { height, weight, types, abilities } = props
+  const { japaneseGeums, height, weight, types, abilities } = props
 
   const typeList = getPokemonTypeNames(types)
   // typeを日本語に変換する
@@ -33,10 +34,15 @@ export const PokemonFeature = (props: Props) => {
   return (
     <>
       <div className={styles.feature_content}>
-        <PokemonInfoText
-          features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-          text="ねずみポケモン"
-        />
+        {japaneseGeums ? (
+          <PokemonInfoText
+            features={POKEMON_INFO_HEADER.CHARACTERISTIC}
+            text={japaneseGeums}
+          />
+        ) : (
+          <></>
+        )}
+
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.TYPE}
           text={`${japanesePokemonTypes}`}

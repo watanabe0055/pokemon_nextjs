@@ -1,3 +1,72 @@
+export type GrowthRate = {
+  name: string
+  url: string
+}
+
+export type PokedexNumber = {
+  entry_number: number
+  pokedex: {
+    name: string
+    url: string
+  }
+}
+
+export type EggGroup = {
+  name: string
+  url: string
+}
+
+export type Color = {
+  name: string
+  url: string
+}
+
+export type Shape = {
+  name: string
+  url: string
+}
+
+export type Language = {
+  name: string
+  url: string
+}
+
+export type EvolutionChain = {
+  url: string
+}
+
+export type PokemonSpeciesName = {
+  name: string
+  language: Language
+}
+
+export type FlavorTextEntry = {
+  flavor_text: string
+  language: Language
+  version: {
+    name: string
+    url: string
+  }
+}
+
+export type FormDescription = {
+  description: string
+  language: Language
+}
+
+export type Genus = {
+  genus: string
+  language: Language
+}
+
+export type PokemonVariety = {
+  is_default: boolean
+  pokemon: {
+    name: string
+    url: string
+  }
+}
+
 export type PokemonSpecies = {
   id: number
   name: string
@@ -11,36 +80,16 @@ export type PokemonSpecies = {
   hatch_counter: number
   has_gender_differences: boolean
   forms_switchable: boolean
-  growth_rate: {
-    name: string
-    url: string
-  }
-  pokedex_numbers: Array<{
-    entry_number: number
-    pokedex: {
-      name: string
-      url: string
-    }
-  }>
-  egg_groups: Array<{
-    name: string
-    url: string
-  }>
-  color: {
-    name: string
-    url: string
-  }
-  shape: {
-    name: string
-    url: string
-  }
+  growth_rate: GrowthRate
+  pokedex_numbers: PokedexNumber[]
+  egg_groups: EggGroup[]
+  color: Color
+  shape: Shape
   evolves_from_species: {
     name: string
     url: string
   } | null
-  evolution_chain: {
-    url: string
-  }
+  evolution_chain: EvolutionChain
   habitat: {
     name: string
     url: string
@@ -49,51 +98,9 @@ export type PokemonSpecies = {
     name: string
     url: string
   }
-  names: Array<{
-    name: string
-    language: {
-      name: string
-      url: string
-    }
-  }>
-  flavor_text_entries: Array<{
-    flavor_text: string
-    language: {
-      name: string
-      url: string
-    }
-    version: {
-      name: string
-      url: string
-    }
-  }>
-  form_descriptions: Array<{
-    description: string
-    language: {
-      name: string
-      url: string
-    }
-  }>
-  genera: Array<{
-    genus: string
-    language: {
-      name: string
-      url: string
-    }
-  }>
-  varieties: Array<{
-    is_default: boolean
-    pokemon: {
-      name: string
-      url: string
-    }
-  }>
-}
-
-export type PokemonNames = {
-  name: string
-  language: {
-    name: string
-    url: string
-  }
+  names: PokemonSpeciesName[]
+  flavor_text_entries: FlavorTextEntry[]
+  form_descriptions: FormDescription[]
+  genera: Genus[]
+  varieties: PokemonVariety[]
 }
