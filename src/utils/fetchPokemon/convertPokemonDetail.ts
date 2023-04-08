@@ -47,10 +47,10 @@ export const getJapanesePokemonGenus = (
 }
 
 /** 体重と身長を10で割った値を返却する関数
- * @param divid 体重or身長
+ * @param divide 体重or身長
  */
-export const getDividedNumber = (divid: number): number => {
-  return divid / 10
+export const getDividedNumber = (divide: number): number => {
+  return divide / 10
 }
 
 /**

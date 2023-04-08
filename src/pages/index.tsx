@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import axios from 'axios'
-import { BASEURL } from '@/constant/api'
+import { BASEURL, MAX_COUNT } from '@/constant/api'
 import { PokemonCard } from '@/module/pokemonCard'
 import styles from '@/pages/index.module.scss'
 import { getJapanesePokemonName } from '@/utils/fetchPokemon/convertPokemonDetail'
@@ -53,9 +53,10 @@ export default function pokemonIndex(props: {
 export async function getServerSideProps() {
   // ポケモンの一覧を取得
   const pokemonDataList = await axios
-    .get(`${BASEURL.NOMAL}pokemon`)
+    .get(`${BASEURL.NOMAL}pokemon?limit=304`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
+      console.log(pokemonData)
 
       return pokemonData
     })
@@ -66,21 +67,23 @@ export async function getServerSideProps() {
     })
 
   // pokemonDataList?.results が undefined の場合は空の配列 [] を代わりに渡す
-  const japanesePokemonName = await Promise.all(
-    pokemonDataList?.results.map(async (pokemon) => {
-      try {
-        const response = await axios.get(`${BASEURL.SPECIES}/${pokemon.name}`)
-        const pokemonData = response.data.names
-        const japaneseName = getJapanesePokemonName(pokemonData)
+  const japanesePokemonName = (
+    await Promise.all(
+      pokemonDataList?.results.map(async (pokemon) => {
+        try {
+          const response = await axios.get(`${BASEURL.SPECIES}/${pokemon.name}`)
+          const pokemonData = response.data.names
+          const japaneseName = getJapanesePokemonName(pokemonData)
 
-        return japaneseName
-      } catch (error) {
-        console.log(error)
+          return japaneseName
+        } catch (error) {
+          console.log(error)
 
-        return undefined
-      }
-    }) ?? []
-  )
+          return undefined
+        }
+      }) ?? []
+    )
+  ).filter((name) => name !== undefined)
 
   return {
     props: { pokemonDataList, japanesePokemonName },
