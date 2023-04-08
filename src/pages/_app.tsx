@@ -1,6 +1,12 @@
+import Layout from '@/layout/Layout'
 import '@/styles/globals.css'
+// eslint-disable-next-line import/order
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  )
 }
