@@ -18,6 +18,7 @@ export default function DisplayPokemonInfo(props: {
   const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail } = props
 
   const { stats, height, weight, id, types, abilities, species } = pokemonDetail
+
   const [firstPokemonDetail] = convertPokemonDetail(pokemonSpeciesDetail)
   const { japaneseName, japaneseGeums } = firstPokemonDetail
 
