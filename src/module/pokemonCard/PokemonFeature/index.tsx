@@ -36,7 +36,7 @@ export const PokemonFeature = (props: Props) => {
       <div className={styles.feature_content}>
         {japaneseGeums ? (
           <PokemonInfoText
-            features={POKEMON_INFO_HEADER.CHARACTERISTIC}
+            features={POKEMON_INFO_HEADER.CLASSIFICATION}
             text={japaneseGeums}
           />
         ) : (
