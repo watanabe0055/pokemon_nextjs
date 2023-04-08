@@ -15,7 +15,7 @@ export const convertPokemonDetail = (pokemonData: PokemonSpecies) => {
   const japaneseName = getJapanesePokemonName(names)
   const japaneseGeums = getJapanesePokemonGenus(genera)
 
-  return japaneseName
+  return [{ japaneseName, japaneseGeums }]
 }
 
 /**
