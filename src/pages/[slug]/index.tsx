@@ -19,8 +19,6 @@ export default function DisplayPokemonInfo(props: {
   const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail, abilityList } =
     props
 
-  console.log(abilityList)
-
   const { stats, height, weight, id, types, abilities, species } = pokemonDetail
 
   const [firstPokemonDetail] = convertPokemonDetail(pokemonSpeciesDetail)
@@ -39,7 +37,7 @@ export default function DisplayPokemonInfo(props: {
             height={height}
             weight={weight}
             types={types}
-            abilities={abilities}
+            abilityList={abilityList}
           />
           <PokemonStatus stats={stats} />
         </div>
@@ -116,7 +114,7 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
                 return ability.name
               }
             })
-            .filter((abilityName) => abilityName !== undefined)
+            .filter((abilityName: string) => abilityName !== undefined)
             .join('、')
 
           return japaneseAbilityList

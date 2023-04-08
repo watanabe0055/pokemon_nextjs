@@ -14,7 +14,7 @@ type Props = {
   height: number
   weight: number
   types: PokemonType[]
-  abilities: PokemonAbility[]
+  abilityList: PokemonAbility[]
 }
 
 /**
@@ -22,11 +22,13 @@ type Props = {
  * @param props
  */
 export const PokemonFeature = (props: Props) => {
-  const { japaneseGeums, height, weight, types, abilities } = props
+  const { japaneseGeums, height, weight, types, abilityList } = props
 
   const typeList = getPokemonTypeNames(types)
   // typeを日本語に変換する
   const japanesePokemonTypes = translateTypeToJapanese(typeList)
+
+  const abilityText = abilityList.toString().replaceAll(',', '、')
 
   return (
     <>
@@ -54,7 +56,7 @@ export const PokemonFeature = (props: Props) => {
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-          text={`${abilities}`}
+          text={`${abilityText}`}
         />
       </div>
     </>
