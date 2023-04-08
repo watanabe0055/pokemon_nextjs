@@ -14,8 +14,12 @@ export default function DisplayPokemonInfo(props: {
   pokemonImagePath: string
   pokemonSpeciesDetail: PokemonSpecies
   pokemonDetail: PokemonResponse
+  abilityList: string[]
 }) {
-  const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail } = props
+  const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail, abilityList } =
+    props
+
+  console.log(abilityList)
 
   const { stats, height, weight, id, types, abilities, species } = pokemonDetail
 
@@ -96,7 +100,43 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
       return undefined
     })
 
+  const abilityList = await Promise.all(
+    pokemonDetail.abilities.map(async (ability) => {
+      const url = ability.ability.url
+      console.log(url)
+
+      const pokemonAbilityList = await axios
+        .get(url)
+        .then((response) => {
+          const pokemonAbilityData = response.data.names
+
+          const japaneseAbilityList = pokemonAbilityData
+            .map((ability) => {
+              if (ability.language.name === 'ja') {
+                return ability.name
+              }
+            })
+            .filter((abilityName) => abilityName !== undefined)
+            .join('、')
+
+          return japaneseAbilityList
+        })
+        .catch((error) => {
+          console.log(error)
+
+          return undefined
+        })
+
+      return pokemonAbilityList
+    })
+  )
+
   return {
-    props: { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail },
+    props: {
+      pokemonImagePath,
+      pokemonSpeciesDetail,
+      pokemonDetail,
+      abilityList,
+    },
   }
 }

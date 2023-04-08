@@ -2,7 +2,6 @@ import { PokemonInfoText } from '@/atom/pokemonInfoText'
 import { POKEMON_INFO_HEADER } from '@/constant/pokemonInfo'
 import {
   getDividedNumber,
-  getPokemonAbilitiesNames,
   getPokemonTypeNames,
 } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { translateTypeToJapanese } from '@/utils/translateTypeToJapanese'
@@ -28,8 +27,6 @@ export const PokemonFeature = (props: Props) => {
   const typeList = getPokemonTypeNames(types)
   // typeを日本語に変換する
   const japanesePokemonTypes = translateTypeToJapanese(typeList)
-
-  const abilityList = getPokemonAbilitiesNames(abilities)
 
   return (
     <>
@@ -57,7 +54,7 @@ export const PokemonFeature = (props: Props) => {
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-          text={`${abilityList}`}
+          text={`${abilities}`}
         />
       </div>
     </>

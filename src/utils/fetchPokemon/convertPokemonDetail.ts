@@ -1,5 +1,4 @@
-import axios from 'axios'
-import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
+import type { PokemonType } from '@/type/pokemonDetail'
 import type {
   Genus,
   PokemonSpeciesName,
@@ -64,33 +63,4 @@ export const getPokemonTypeNames = (typeList: PokemonType[]) => {
   })
 
   return types
-}
-
-/**
- * タイプオブジェクトからnameだけを取得して、配列または文字列で返す
- * @param typeList タイプのオブジェクト
- */
-export const getPokemonAbilitiesNames = async (
-  abilities: PokemonAbility[]
-): Promise<string | string[]> => {
-  const abilityList = await Promise.all(
-    abilities.map(async (ability: PokemonAbility) => {
-      const response = await axios.get(ability.ability.url)
-      const japaneseAbility = response.data.names
-
-      return japaneseAbility
-    })
-  )
-
-  convertAbilitiesJapanes(abilityList)
-
-  // typeが２つ以上の時は「、」で区切った配列を返す
-  const abilityListJoin =
-    abilityList.length >= 2 ? abilityList.join('、') : abilityList[0]
-
-  return abilityListJoin
-}
-
-export const convertAbilitiesJapanes = (abilityList) => {
-  console.log(abilityList)
 }
