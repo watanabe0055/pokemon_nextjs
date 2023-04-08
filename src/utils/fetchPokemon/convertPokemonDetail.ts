@@ -34,7 +34,7 @@ export const getJapanesePokemonName = (
 
 /**
  * genusから日本語名の生物種を取得する関数
- * @param pokemonGenus namesオブジェクト
+ * @param pokemonGenus genusオブジェクト
  */
 export const getJapanesePokemonGenus = (
   pokemonGenus: Genus[]
