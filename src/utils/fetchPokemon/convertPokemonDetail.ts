@@ -1,4 +1,4 @@
-import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
+import type { PokemonType } from '@/type/pokemonDetail'
 import type {
   Genus,
   PokemonSpeciesName,
@@ -63,21 +63,4 @@ export const getPokemonTypeNames = (typeList: PokemonType[]) => {
   })
 
   return types
-}
-
-/**
- * タイプオブジェクトからnameだけを取得して、配列または文字列で返す
- * @param typeList タイプのオブジェクト
- */
-export const getPokemonAbilitiesNames = (
-  abilities: PokemonAbility[]
-): string | string[] => {
-  const abilityList = abilities.map((ability: PokemonAbility) => {
-    return ability.ability.name
-  })
-  // typeが２つ以上の時は「、」で区切った配列を返す
-  const abilityListJoin =
-    abilityList.length >= 2 ? abilityList.join('、') : abilityList
-
-  return abilityListJoin
 }

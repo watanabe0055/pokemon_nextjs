@@ -2,11 +2,10 @@ import { PokemonInfoText } from '@/atom/pokemonInfoText'
 import { POKEMON_INFO_HEADER } from '@/constant/pokemonInfo'
 import {
   getDividedNumber,
-  getPokemonAbilitiesNames,
   getPokemonTypeNames,
 } from '@/utils/fetchPokemon/convertPokemonDetail'
 import { translateTypeToJapanese } from '@/utils/translateTypeToJapanese'
-import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
+import type { PokemonType } from '@/type/pokemonDetail'
 import styles from './index.module.scss'
 
 /** 特性コンポーネントの用 */
@@ -15,7 +14,7 @@ type Props = {
   height: number
   weight: number
   types: PokemonType[]
-  abilities: PokemonAbility[]
+  abilityList: string[]
 }
 
 /**
@@ -23,13 +22,13 @@ type Props = {
  * @param props
  */
 export const PokemonFeature = (props: Props) => {
-  const { japaneseGeums, height, weight, types, abilities } = props
+  const { japaneseGeums, height, weight, types, abilityList } = props
 
   const typeList = getPokemonTypeNames(types)
   // typeを日本語に変換する
   const japanesePokemonTypes = translateTypeToJapanese(typeList)
 
-  const abilityList = getPokemonAbilitiesNames(abilities)
+  const abilityText = abilityList.toString().replaceAll(',', '、')
 
   return (
     <>
@@ -57,7 +56,7 @@ export const PokemonFeature = (props: Props) => {
         />
         <PokemonInfoText
           features={POKEMON_INFO_HEADER.CHARACTERISTIC}
-          text={`${abilityList}`}
+          text={`${abilityText}`}
         />
       </div>
     </>

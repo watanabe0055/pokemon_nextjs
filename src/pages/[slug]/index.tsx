@@ -14,10 +14,13 @@ export default function DisplayPokemonInfo(props: {
   pokemonImagePath: string
   pokemonSpeciesDetail: PokemonSpecies
   pokemonDetail: PokemonResponse
+  abilityList: string[]
 }) {
-  const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail } = props
+  const { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail, abilityList } =
+    props
 
-  const { stats, height, weight, id, types, abilities, species } = pokemonDetail
+  const { stats, height, weight, types } = pokemonDetail
+
   const [firstPokemonDetail] = convertPokemonDetail(pokemonSpeciesDetail)
   const { japaneseName, japaneseGeums } = firstPokemonDetail
 
@@ -34,7 +37,7 @@ export default function DisplayPokemonInfo(props: {
             height={height}
             weight={weight}
             types={types}
-            abilities={abilities}
+            abilityList={abilityList}
           />
           <PokemonStatus stats={stats} />
         </div>
@@ -95,7 +98,45 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
       return undefined
     })
 
+  const abilityList = await Promise.all(
+    pokemonDetail.abilities.map(async (ability: any) => {
+      const url = ability.ability.url
+
+      const pokemonAbilityList = await axios
+        .get(url)
+        .then((response) => {
+          const pokemonAbilityData = response.data.names
+          console.log(pokemonAbilityData)
+
+          const japaneseAbilityList = pokemonAbilityData
+            .map((ability: any) => {
+              if (ability.language.name === 'ja') {
+                return ability.name
+              }
+
+              return undefined
+            })
+            .filter((abilityName: string) => abilityName !== undefined)
+            .join('、')
+
+          return japaneseAbilityList
+        })
+        .catch((error) => {
+          console.log(error)
+
+          return undefined
+        })
+
+      return pokemonAbilityList
+    })
+  )
+
   return {
-    props: { pokemonImagePath, pokemonSpeciesDetail, pokemonDetail },
+    props: {
+      pokemonImagePath,
+      pokemonSpeciesDetail,
+      pokemonDetail,
+      abilityList,
+    },
   }
 }
