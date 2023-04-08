@@ -108,7 +108,6 @@ export async function getServerSideProps(context: { query: { slug: string } }) {
         .get(url)
         .then((response) => {
           const pokemonAbilityData = response.data.names
-          console.log(pokemonAbilityData)
 
           const japaneseAbilityList = pokemonAbilityData
             .map((ability: any) => {
