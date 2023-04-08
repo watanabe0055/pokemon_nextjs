@@ -1,14 +1,19 @@
 import type { PokemonAbility, PokemonType } from '@/type/pokemonDetail'
-import type { PokemonNames, PokemonSpecies } from '@/type/pokemonSpacies'
+import type {
+  Genus,
+  PokemonSpeciesName,
+  PokemonSpecies,
+} from '@/type/pokemonSpacies'
 
 /**
  * @module ポケモンスペシャルオブジェクトから必要な要素のみを取得する
  * @param pokemonData speciesのオブジェクト
  */
 export const convertPokemonDetail = (pokemonData: PokemonSpecies) => {
-  const { names } = pokemonData
+  const { names, genera } = pokemonData
   // ポケモンの日本語名
   const japaneseName = getJapanesePokemonName(names)
+  const japaneseGeums = getJapanesePokemonGenus(genera)
 
   return japaneseName
 }
@@ -18,13 +23,27 @@ export const convertPokemonDetail = (pokemonData: PokemonSpecies) => {
  * @param pokemonNames namesオブジェクト
  */
 export const getJapanesePokemonName = (
-  pokemonNames: PokemonNames[]
+  pokemonNames: PokemonSpeciesName[]
 ): string | undefined => {
-  const japaneseName: PokemonNames | undefined = pokemonNames.find(
-    (name: PokemonNames) => name.language.name === 'ja'
+  const japaneseName: PokemonSpeciesName | undefined = pokemonNames.find(
+    (name: PokemonSpeciesName) => name.language.name === 'ja'
   )
 
-  return japaneseName ? japaneseName.name : undefined
+  return japaneseName?.name
+}
+
+/**
+ * genusから日本語名の生物種を取得する関数
+ * @param pokemonGenus namesオブジェクト
+ */
+export const getJapanesePokemonGenus = (
+  pokemonGenus: Genus[]
+): string | undefined => {
+  const japaneseGenus: Genus | undefined = pokemonGenus.find(
+    (name: Genus) => name.language.name === 'ja'
+  )
+
+  return japaneseGenus?.genus
 }
 
 /** 体重と身長を10で割った値を返却する関数
