@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import axios from 'axios'
-import { BASEURL, MAX_COUNT } from '@/constant/api'
+import { BASEURL } from '@/constant/api'
 import { PokemonCard } from '@/module/pokemonCard'
 import styles from '@/pages/index.module.scss'
 import { getJapanesePokemonName } from '@/utils/fetchPokemon/convertPokemonDetail'
@@ -56,7 +56,6 @@ export async function getServerSideProps() {
     .get(`${BASEURL.NOMAL}pokemon?limit=304`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
-      console.log(pokemonData)
 
       return pokemonData
     })
