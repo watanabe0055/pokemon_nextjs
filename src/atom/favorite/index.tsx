@@ -5,18 +5,21 @@ import styles from './index.module.scss'
 export const FavoriteButton = () => {
   const router = useRouter()
   const [isFavorite, setIsFavorite] = useState(false)
+  const [isFavoriteCount, setIsFavoriteCount] = useState(0)
 
   const pokemonId = router.query.slug
 
   // お気に入りボタンの切り替えイベント
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
+    setIsFavoriteCount(isFavoriteCount + 1)
   }
 
   useEffect(() => {
-    if (isFavorite) {
+    if (isFavorite && isFavoriteCount >= 1) {
       localStorage.setItem('form', JSON.stringify(pokemonId))
-    } else {
+    }
+    if (!isFavorite && isFavoriteCount >= 1) {
       localStorage.removeItem('form')
     }
   }, [isFavorite, pokemonId])
