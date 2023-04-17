@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 
 export const FavoriteButton = () => {
+  const router = useRouter()
   const [isFavorite, setIsFavorite] = useState(false)
 
+  const pokemonId = router.query.slug
+
+  // お気に入りボタンの切り替えイベント
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
+
+  useEffect(() => {
+    if (isFavorite) {
+      localStorage.setItem('form', JSON.stringify(pokemonId))
+    } else {
+      localStorage.removeItem('form')
+    }
+  }, [isFavorite, pokemonId])
 
   return (
     <>
