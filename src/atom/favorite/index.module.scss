@@ -1,0 +1,39 @@
+.likes {
+  position: relative;
+  display: inline-block;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .iconImage {
+    fill: #42afe3;
+  }
+
+  .favorite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  .nonActive {
+    fill: #c0c0c0;
+  }
+  .active {
+    fill: #ff3b3b;
+  }
+}

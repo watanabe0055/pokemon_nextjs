@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { FavoriteButton } from '@/atom/favorite'
 import { PokemonImage } from '@/atom/pokemonImage'
 import { PokemonStatus } from '@/module/pokemonCard/pokemonStatus'
 import { convertPokemonDetail } from '@/utils/fetchPokemon/convertPokemonDetail'
@@ -28,6 +29,7 @@ export default function DisplayPokemonInfo(props: {
     <>
       <div className={styles.content}>
         <div className={styles.child}>
+          <FavoriteButton />
           <p className={styles.pokemon_name}>{japaneseName}</p>
           <div className={styles.image}>
             <PokemonImage src={pokemonImagePath} name={japaneseName} />
