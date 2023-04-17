@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 export const FavoriteButton = () => {
   const router = useRouter()
   const [isFavorite, setIsFavorite] = useState(false)
+  // 初回レンダリング時に既にフォローしてるか判定出来ないのでカウンター
   const [isFavoriteCount, setIsFavoriteCount] = useState(0)
 
   const pokemonId = router.query.slug
@@ -15,6 +16,7 @@ export const FavoriteButton = () => {
     setIsFavoriteCount(isFavoriteCount + 1)
   }
 
+  // お気に入りボタンを押下した時
   useEffect(() => {
     if (isFavorite && isFavoriteCount >= 1) {
       localStorage.setItem('form', JSON.stringify(pokemonId))
@@ -23,6 +25,15 @@ export const FavoriteButton = () => {
       localStorage.removeItem('form')
     }
   }, [isFavorite, pokemonId])
+
+  // 初回レンダリング時に既フォロー判定するため
+  useEffect(() => {
+    const myValue = localStorage.getItem('form')
+    const favoritePokemon = myValue?.replaceAll('"', '')
+    if (favoritePokemon === pokemonId) {
+      setIsFavorite(true)
+    }
+  }, [])
 
   return (
     <>
