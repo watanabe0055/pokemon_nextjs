@@ -56,7 +56,6 @@ export async function getServerSideProps() {
     .get(`${BASEURL.NOMAL}pokemon?limit=304`)
     .then((response: ResponsePokemonDataList) => {
       const pokemonData: PokemonDataList = response.data
-      console.log(pokemonData)
 
       return pokemonData
     })

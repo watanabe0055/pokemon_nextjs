@@ -40,18 +40,6 @@ export const PokemonStatus = (statsList: PokemonStats) => {
     return stats.base_stat
   })
 
-  const options = {
-    scale: {
-      angleLines: {
-        display: false,
-      },
-      ticks: {
-        suggestedMin: 50,
-        suggestedMax: 120,
-      },
-    },
-  }
-
   // レーダーチャートに使用しているデータセット
   const data = {
     type: 'radar',
@@ -72,8 +60,17 @@ export const PokemonStatus = (statsList: PokemonStats) => {
         borderWidth: 1,
       },
     ],
-    // TODO: オプションが効いてない
-    options,
+    options: {
+      scale: {
+        angleLines: {
+          display: false,
+        },
+        ticks: {
+          suggestedMin: 50,
+          suggestedMax: 120,
+        },
+      },
+    },
   }
 
   return (
